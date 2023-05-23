@@ -28,6 +28,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", 'OPEN_AI_KEY', "\"${localProperties.getProperty("OPEN_AI_KEY")}\""
+            resValue "string", 'back4app_app_id', "${localProperties.getProperty("BACK4APP_APP_ID")}"
+            resValue "string", 'back4app_client_key', "${localProperties.getProperty("BACK4APP_CLIENT_KEY")}"
+            resValue "string", 'back4app_server_url', "${localProperties.getProperty("BACK4APP_SERVER_URL")}"
         }
         release {
             minifyEnabled false
@@ -81,6 +84,9 @@ dependencies {
 
     // Back4App Parse
     implementation "com.github.parse-community.Parse-SDK-Android:parse:$parse_version"
+
+    // Startup Initialization
+    implementation "androidx.startup:startup-runtime:$startup_version"
 
 
     testImplementation 'junit:junit:4.13.2'
