@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id "com.google.protobuf" version "0.9.1"
+    id 'com.google.devtools.ksp' version '1.7.20-1.0.8'
 }
 
 android {
@@ -22,6 +23,12 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+    }
+
+    applicationVariants.all { variant ->
+        variant.addJavaSourceFoldersToModel(
+                new File(buildDir, "generated/ksp/${variant.name}/kotlin")
+        )
     }
 
     buildTypes {
@@ -92,6 +99,10 @@ dependencies {
     // Proto DataStore
     implementation "androidx.datastore:datastore:$datastore_version"
     implementation  "com.google.protobuf:protobuf-javalite:$protobufVersion"
+
+    // Compose Destinations (Navigation)
+    implementation "io.github.raamcosta.compose-destinations:animations-core:$destination_version"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$destination_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

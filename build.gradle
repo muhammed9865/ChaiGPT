@@ -8,6 +8,7 @@ buildscript {
         startup_version='1.1.1'
         datastore_version='1.0.0'
         protobufVersion = '3.19.4'
+        destination_version='1.7.41-beta'
     }
 }
 plugins {
