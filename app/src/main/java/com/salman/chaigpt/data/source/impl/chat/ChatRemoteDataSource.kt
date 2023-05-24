@@ -1,13 +1,11 @@
-package com.salman.chaigpt.data.remote.impl
+package com.salman.chaigpt.data.source.impl.chat
 
 import com.salman.chaigpt.data.model.chat.ChatMessageRequest
 import com.salman.chaigpt.data.model.chat.ChatMessageResponse
-import com.salman.chaigpt.data.remote.api.ChatDataSource
+import com.salman.chaigpt.data.source.api.ChatDataSource
 import com.salman.chaigpt.domain.model.chat.Message
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlin.coroutines.coroutineContext
 
 /**
  * Created by Muhammed Salman email(mahmadslman@gmail.com) on 5/22/2023.

@@ -1,4 +1,4 @@
-package com.salman.chaigpt.data.remote.interceptor
+package com.salman.chaigpt.data.source.interceptor
 
 import com.salman.chaigpt.BuildConfig
 import okhttp3.Interceptor

@@ -1,9 +1,14 @@
 package com.salman.chaigpt.di
 
-import com.salman.chaigpt.data.remote.api.ChatDataSource
-import com.salman.chaigpt.data.remote.impl.ChatApiService
-import com.salman.chaigpt.data.remote.impl.ChatRemoteDataSource
-import com.salman.chaigpt.data.remote.interceptor.AuthorizationInterceptor
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import com.salman.chaigpt.Settings
+import com.salman.chaigpt.data.source.api.ChatDataSource
+import com.salman.chaigpt.data.source.impl.chat.ChatApiService
+import com.salman.chaigpt.data.source.impl.chat.ChatRemoteDataSource
+import com.salman.chaigpt.data.source.interceptor.AuthorizationInterceptor
+import com.salman.chaigpt.data.source.preference.internal.SettingsSerializer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -49,4 +54,11 @@ val dataModule = module {
             service = get()
         )
     }
+
+    single { get<Context>().dataStoreSettings }
 }
+
+private val Context.dataStoreSettings: DataStore<Settings> by dataStore(
+    fileName = "settings.pb",
+    serializer = SettingsSerializer
+)

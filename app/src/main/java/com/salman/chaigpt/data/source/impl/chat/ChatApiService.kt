@@ -1,4 +1,4 @@
-package com.salman.chaigpt.data.remote.impl
+package com.salman.chaigpt.data.source.impl.chat
 
 import com.salman.chaigpt.data.model.chat.ChatMessageRequest
 import com.salman.chaigpt.data.model.chat.ChatMessageResponse

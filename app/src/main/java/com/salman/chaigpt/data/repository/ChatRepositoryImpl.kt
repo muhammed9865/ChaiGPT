@@ -1,6 +1,6 @@
 package com.salman.chaigpt.data.repository
 
-import com.salman.chaigpt.data.remote.api.ChatDataSource
+import com.salman.chaigpt.data.source.api.ChatDataSource
 import com.salman.chaigpt.domain.model.chat.Message
 import com.salman.chaigpt.domain.repository.ChatRepository
 import kotlinx.coroutines.flow.Flow
