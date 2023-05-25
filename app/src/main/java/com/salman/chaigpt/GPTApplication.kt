@@ -2,7 +2,8 @@ package com.salman.chaigpt
 
 import android.app.Application
 import com.salman.chaigpt.di.dataModule
-import com.salman.chaigpt.di.domainModule
+import com.salman.chaigpt.di.repositoryModule
+import com.salman.chaigpt.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -17,7 +18,8 @@ class GPTApplication : Application() {
             androidContext(this@GPTApplication)
             modules(
                 dataModule,
-                domainModule
+                repositoryModule,
+                useCaseModule
             )
         }
     }

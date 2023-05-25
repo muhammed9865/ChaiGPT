@@ -1,8 +1,8 @@
 package com.salman.chaigpt.data.repository
 
 import com.salman.chaigpt.data.model.User
-import com.salman.chaigpt.data.source.api.SettingsSource
-import com.salman.chaigpt.data.source.api.UserDataStore
+import com.salman.chaigpt.data.source.api.SettingsDataSource
+import com.salman.chaigpt.data.source.api.UserDataSource
 import com.salman.chaigpt.domain.model.exception.AuthenticationFailedException
 import com.salman.chaigpt.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,19 +11,19 @@ import kotlinx.coroutines.flow.Flow
  * Created by Muhammed Salman email(mahmadslman@gmail.com) on 5/24/2023.
  */
 class UserRepositoryImpl(
-    private val userDataStore: UserDataStore,
-    private val settingsSource: SettingsSource
+    private val userDataSource: UserDataSource,
+    private val settingsSource: SettingsDataSource
 ) : UserRepository {
 
     override val currentUser: User?
-        get() = userDataStore.currentUser
+        get() = userDataSource.currentUser
 
     override val currentUserFlow: Flow<User?>
-        get() = userDataStore.currentUserFlow
+        get() = userDataSource.currentUserFlow
 
     override suspend fun signUp(username: String, email: String, password: String): Result<Unit> {
         return trySafely {
-            userDataStore.signUp(username, email, password)
+            userDataSource.signUp(username, email, password)
         }
     }
 
@@ -33,7 +33,7 @@ class UserRepositoryImpl(
         rememberMe: Boolean,
     ): Result<Unit> {
         return trySafely {
-            userDataStore.signIn(email, password)
+            userDataSource.signIn(email, password)
             if (rememberMe) {
                 settingsSource.setSessionToken(currentUser?.sessionToken ?: "")
             }
@@ -47,13 +47,13 @@ class UserRepositoryImpl(
         }
         val token = settingsSource.getSessionToken()!!
         return trySafely {
-            userDataStore.signIn(token)
+            userDataSource.signIn(token)
         }
     }
 
     override suspend fun signOut(): Result<Unit> {
         return trySafely {
-            userDataStore.signOut()
+            userDataSource.signOut()
         }
     }
 

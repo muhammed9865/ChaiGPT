@@ -3,7 +3,7 @@ package com.salman.chaigpt.data.source.impl.user
 import com.parse.ParseException
 import com.parse.ParseUser
 import com.salman.chaigpt.data.model.User
-import com.salman.chaigpt.data.source.api.UserDataStore
+import com.salman.chaigpt.data.source.api.UserDataSource
 import com.salman.chaigpt.domain.model.exception.AuthenticationFailedException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 /**
  * Created by Muhammed Salman email(mahmadslman@gmail.com) on 5/24/2023.
  */
-class UserRemoteDataSource : UserDataStore {
+class UserRemoteDataSource : UserDataSource {
     private var _currentUser: User? = null
     override val currentUser: User?
         get() = _currentUser

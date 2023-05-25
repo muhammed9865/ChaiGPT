@@ -5,12 +5,18 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import com.salman.chaigpt.Settings
 import com.salman.chaigpt.data.source.api.ChatDataSource
+import com.salman.chaigpt.data.source.api.SettingsDataSource
+import com.salman.chaigpt.data.source.api.UserDataSource
+import com.salman.chaigpt.data.source.impl.SettingsLocalDataSource
 import com.salman.chaigpt.data.source.impl.chat.ChatApiService
 import com.salman.chaigpt.data.source.impl.chat.ChatRemoteDataSource
+import com.salman.chaigpt.data.source.impl.user.UserRemoteDataSource
 import com.salman.chaigpt.data.source.interceptor.AuthorizationInterceptor
 import com.salman.chaigpt.data.source.preference.internal.SettingsSerializer
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,12 +54,13 @@ val dataModule = module {
         retrofit.create(ChatApiService::class.java)
     }
 
-    // ChatRemoteDataSource Single
-    single<ChatDataSource> {
-        ChatRemoteDataSource(
-            service = get()
-        )
-    }
+    // ChatDataSource Single
+    singleOf(::ChatRemoteDataSource) { bind<ChatDataSource>() }
+    // UserDataSource Single
+    singleOf(::UserRemoteDataSource) { bind<UserDataSource>() }
+
+    // SettingsDataSource Single
+    singleOf(::SettingsLocalDataSource) { bind<SettingsDataSource>() }
 
     single { get<Context>().dataStoreSettings }
 }
